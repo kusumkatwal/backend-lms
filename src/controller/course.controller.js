@@ -2,11 +2,13 @@ const Course = require('../model/course.model');
 
 exports.createCourse = async (req, res) => {
   try {
+    const payload = req.body;
+    console.log(payload);
     const newCourse = new Course(req.body);
     await newCourse.save();
-    res.status(201).json(newCourse);
+    res.status(201).json({success: 'true', newCourse});
   } catch (error) {
-    res.status(400).json({ message: 'Error creating course', error: error.message });
+    res.status(400).json({success: 'false', message: 'Error creating course', error: error.message });
   }
 };
 
